@@ -8,14 +8,20 @@ import BoardScreen from "./pages/BoardScreen";
 //Components
 import Layout from "./components/Layout";
 
+//Styles
+import GlobalStyle from "./assets/styles/global";
+
 function App() {
   return (
-    <Layout>
-      <Switch>
-        <Route exact path="/" component={HomeScreen} />
-        <Route exact path="/board" component={BoardScreen} />
-      </Switch>
-    </Layout>
+    <>
+      <GlobalStyle />
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/board" component={BoardScreen} />
+        </Switch>
+      </Layout>
+    </>
   );
 }
 

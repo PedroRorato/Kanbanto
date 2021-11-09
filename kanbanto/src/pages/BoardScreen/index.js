@@ -3,22 +3,24 @@ import React from "react";
 //Components
 import Column from "../../components/Column";
 
-import classes from "./BoardScreen.module.css";
+//Styles
+import { Container, Menu, ColumnsContainer } from "./styles";
 
+//Main Function
 const BoardScreen = () => {
   return (
-    <div className={classes.boardScreen}>
-      <div className={classes.menu}>
+    <Container>
+      <Menu>
         <h2>Nome do Board</h2>
-      </div>
-      <div className={classes.columnsContainer}>
+      </Menu>
+      <ColumnsContainer>
         <Column title="Backlog" />
         <Column title="To Do" />
         <Column title="In Progress" />
         <Column title="Testing" />
         <Column title="Done" />
-      </div>
-    </div>
+      </ColumnsContainer>
+    </Container>
   );
 };
 

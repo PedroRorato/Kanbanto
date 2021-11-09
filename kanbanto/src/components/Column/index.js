@@ -4,17 +4,17 @@ import React from "react";
 import TaskCard from "../TaskCard";
 
 //Styles
-import classes from "./Column.module.css";
+import { Container } from "./styles";
 
 const Column = ({ title }) => {
   return (
-    <div className={classes.column}>
+    <Container>
       <h3>{title}</h3>
-      <div className={classes.cardsContainer}>
+      <ul>
         <TaskCard />
         <TaskCard />
-      </div>
-    </div>
+      </ul>
+    </Container>
   );
 };
 

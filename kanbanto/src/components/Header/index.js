@@ -1,11 +1,14 @@
 import React from "react";
-import classes from "./Header.module.css";
 
+//Styles
+import { Container } from "./styles";
+
+//Main Function
 const Header = () => {
   return (
-    <div className={classes.header}>
+    <Container>
       <h1>Kanbanto</h1>
-    </div>
+    </Container>
   );
 };
 

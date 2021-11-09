@@ -1,12 +1,14 @@
 import React from "react";
 
-import classes from "./TaskCard.module.css";
+//Styles
+import { Container } from "./styles";
 
+//Main Function
 function TaskCard() {
   return (
-    <div className={classes.taskCard}>
+    <Container>
       TaskCard
-    </div>
+    </Container>
   );
 }
 

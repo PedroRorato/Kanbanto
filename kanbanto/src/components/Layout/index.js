@@ -1,18 +1,20 @@
 import React from "react";
 
+//Components
 import Header from "../Header";
 
-import classes from "./Layout.module.css";
+//Styles
+import { Container, Content } from "./styles";
 
+//Main Function
 const Layout = (props) => {
   return (
-    <div className={classes.container}>
+    <Container>
       <Header />
-      <div className={classes.content}>
+      <Content>
         {props.children}
-      </div>
-
-    </div>
+      </Content>
+    </Container>
   );
 };
 

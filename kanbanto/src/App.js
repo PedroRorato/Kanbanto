@@ -18,7 +18,7 @@ function App() {
       <Layout>
         <Switch>
           <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/boards" component={BoardScreen} />
+          <Route exact path="/boards/:id" component={BoardScreen} />
         </Switch>
       </Layout>
     </>

@@ -4,10 +4,10 @@ import React from "react";
 import { Container } from "./styles";
 
 //Main Function
-function TaskCard() {
+function TaskCard(props) {
   return (
     <Container>
-      TaskCard
+      {props.title}
     </Container>
   );
 }

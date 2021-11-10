@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router";
+import { useParams } from "react-router";
 
 //API
 import { tasksArr } from "../../database/tasks";
@@ -12,7 +12,7 @@ import { Container, Menu, ColumnsContainer } from "./styles";
 
 //Main Function
 const BoardScreen = () => {
-  // const {id} = useParams();
+  const { id } = useParams();
   const [tasks, setTasks] = useState({
     backlog: [],
     todo: [],
@@ -38,7 +38,7 @@ const BoardScreen = () => {
     console.log(taskMap);
     console.log(taskMap.backlog);
     setTasks(taskMap);
-  }, []);
+  }, [id]);
 
   console.log("tasks: ", tasks);
 

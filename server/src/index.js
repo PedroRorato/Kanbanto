@@ -1,9 +1,17 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require("./routes");
 
+//Start
+require("./models")
+//Start app
 const app = express();
 
-app.get('/boards', (req, res) => res.json("Você está na home"));
-app.post('/boards/:boardId/task', (req, res) => res.json("Você está na home"));
+//Enable JSON
+app.use(cors())
+app.use(express.json())
+
+//Routes
+app.use(routes);
 
 app.listen(3333, () => console.log("Servidor rodando na porta 3333"));

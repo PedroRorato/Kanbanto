@@ -1,9 +1,9 @@
-const Board = require("../models/board");
+const { Board } = require("../models");
 
 module.exports = {
   async index(request, response) {
-    const cidades = await Cidade.findAll();
+    const boards = await Board.findAll();
 
-    return response.json(cidades);
+    return response.json(boards);
   }
 };

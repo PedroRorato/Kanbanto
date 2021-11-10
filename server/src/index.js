@@ -2,8 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const routes = require("./routes");
 
-//Start
-require("./models")
 //Start app
 const app = express();
 

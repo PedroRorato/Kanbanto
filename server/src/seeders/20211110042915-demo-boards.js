@@ -1,15 +1,16 @@
-'use strict';
+/* eslint-disable no-unused-vars */
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Boards', [
+    await queryInterface.bulkInsert("Boards", [
       {
-        name: 'Fazenda',
+        name: "Fazenda",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Programação',
+        name: "Programação",
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -17,6 +18,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Boards', null, {});
+    await queryInterface.bulkDelete("Boards", null, {});
   }
 };

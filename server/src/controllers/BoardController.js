@@ -35,7 +35,7 @@ module.exports = {
     const data = request.body;
     try {
       await Board.update(data, { where: { id } });
-      const updatedBoard = await Board.findByPk(id)
+      const updatedBoard = await Board.findByPk(id);
       return response.status(200).json(updatedBoard);
     } catch (error) {
       return response.status(500).json(error.message);
@@ -46,7 +46,7 @@ module.exports = {
     const { id } = request.params;
     try {
       const boardExists = await Board.destroy({ where: { id } });
-      // if (!boardExists) return response.status(404).json("Board not found!");
+      if (!boardExists) return response.status(404).json("Board not found!");
       return response.status(200).json("Board successfully deleted!");
     } catch (error) {
       return response.status(500).json(error.message);

@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 //Controllers
-const BoardController = require('../controllers/BoardController');
+const BoardController = require("../controllers/BoardController");
 
 //Start router
 const router = Router();

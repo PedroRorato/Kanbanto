@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+
+//Custom files
 const routes = require("./routes");
 
 //Start app
@@ -10,6 +12,6 @@ app.use(cors())
 app.use(express.json())
 
 //Routes
-app.use(routes);
+routes(app);
 
-app.listen(3333, () => console.log("Servidor rodando na porta 3333"));
+app.listen(3333, () => console.log("Server running on port 3333"));

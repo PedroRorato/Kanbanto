@@ -6,11 +6,14 @@ module.exports = {
     await queryInterface.bulkInsert("Boards", [
       {
         name: "Fazenda",
+        description: "Tarefas da Fazenda",
+        adminId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: "Programação",
+        adminId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }

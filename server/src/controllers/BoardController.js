@@ -24,7 +24,8 @@ module.exports = {
     const { id } = request.params;
     try {
       const board = await Board.findByPk(id);
-      return response.status(200).json(board);
+      const admin = await board.getUser();
+      return response.status(200).json(admin);
     } catch (error) {
       return response.status(500).json(error.message);
     }

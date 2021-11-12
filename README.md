@@ -1,3 +1,3 @@
 # Kanbanto
-This system is being developed for academic pourposes.
+This system is being developed for academic purposes.
 

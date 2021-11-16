@@ -11,9 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Board, {
-        foreignKey: "adminId"
-      });
+      this.hasMany(models.Board, { foreignKey: "adminId" });
+      this.belongsToMany(models.Board, { as: "boards", through: "board_users" });
     }
   }
   User.init({
@@ -22,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     picture: DataTypes.STRING
   }, {
+    defaultScope: {
+      attributes: { exclude: ["password"] },
+    },
     sequelize,
     modelName: "User",
   });

@@ -4,7 +4,7 @@ module.exports = {
   async index(request, response) {
     const { boardId } = request.params;
     try {
-      const tasks = await Task.findAll({ where: { boardId } });
+      const tasks = await Task.findAll({ where: { boardId }, include: "labels" });
       return response.status(200).json(tasks);
     } catch (error) {
       return response.status(500).json(error.message);
@@ -51,6 +51,29 @@ module.exports = {
       const TaskExists = await Task.destroy({ where: { id } });
       if (!TaskExists) return response.status(404).json("Task not found!");
       return response.status(200).json("Task successfully deleted!");
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
+  },
+
+  async addLabel(request, response) {
+    const { id } = request.params;
+    const { labelId } = request.body;
+    try {
+      const task = await Task.findByPk(id);
+      await task.setLabels(labelId);
+      return response.status(200).json("Label successfully added!");
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
+  },
+
+  async removeLabel(request, response) {
+    const { taskId, labelId } = request.params;
+    try {
+      const task = await Task.findByPk(taskId);
+      await task.removeLabels(labelId);
+      return response.status(200).json("Label successfully removed!");
     } catch (error) {
       return response.status(500).json(error.message);
     }

@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Board, {
         foreignKey: "boardId"
       });
+      this.belongsToMany(models.Task, { as: "tasks", through: "task_labels" });
     }
   }
   Label.init({

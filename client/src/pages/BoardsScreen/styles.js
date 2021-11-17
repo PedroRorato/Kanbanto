@@ -32,6 +32,11 @@ export const Button = styled.button`
   align-items: center;
   color: #555;
   cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    opacity: .7;
+  }
 `;
 
 export const Card = styled.li`
@@ -40,16 +45,21 @@ export const Card = styled.li`
   border-radius: .25rem;
   height: 100px;
   width: 280px;
+  transition: .3s;
 
-
+  &:hover {
+    opacity: .7;
+  }
 
   a{
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #555;
     text-decoration: none;
     padding: .5rem;
     height: 100%;
     width: 100%;
+
   }
 `;

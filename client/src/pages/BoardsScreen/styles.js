@@ -12,7 +12,6 @@ export const Container = styled.div`
   }
 
   ul {
-    /* background:#ddd; */
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
@@ -35,7 +34,7 @@ export const Button = styled.button`
   transition: .3s;
 
   &:hover {
-    opacity: .7;
+    opacity: .6;
   }
 `;
 
@@ -48,14 +47,14 @@ export const Card = styled.li`
   transition: .3s;
 
   &:hover {
-    opacity: .7;
+    opacity: .6;
   }
 
   a{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #555;
+    color: #333;
     text-decoration: none;
     padding: .5rem;
     height: 100%;

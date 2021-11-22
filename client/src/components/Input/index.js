@@ -3,8 +3,13 @@ import React from "react";
 import { Container } from "./styles";
 
 function Input(props) {
+  const labelTitle = props.title ? props.title : props.name;
+
   return (
-    <Container {...props} />
+    <Container>
+      <label>{labelTitle}</label>
+      <input {...props} />
+    </Container>
   );
 }
 

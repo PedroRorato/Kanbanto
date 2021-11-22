@@ -54,10 +54,4 @@ export const Card = styled.div`
     color: #333;
     /* transition: .3s; */
   }
-
-  div {
-    padding: 1rem 0;
-  }
-
-
 `;

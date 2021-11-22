@@ -2,15 +2,16 @@ import React from "react";
 import { BsXLg } from "react-icons/bs";
 
 //Styles
-import { Background, Container } from "./styles";
+import { Container, Background, Card } from "./styles";
 
 function Modal({ title, display, closeModal, children }) {
 
   const displayStatus = display ? "flex" : "none";
 
   return (
-    <Background display={displayStatus} onClick={closeModal}>
-      <Container>
+    <Container display={displayStatus}>
+      <Background onClick={closeModal} />
+      <Card>
         <header>
           <h2>{title}</h2>
           <button onClick={closeModal}><BsXLg size={20} /></button>
@@ -18,8 +19,8 @@ function Modal({ title, display, closeModal, children }) {
         <div>
           {children}
         </div>
-      </Container>
-    </Background>
+      </Card>
+    </Container>
   );
 }
 

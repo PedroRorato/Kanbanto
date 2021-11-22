@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-export const Background = styled.div`
-  background-color: rgba(0,0,0,.5);
+export const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -13,7 +12,16 @@ export const Background = styled.div`
   padding: 1rem;
 `;
 
-export const Container = styled.div`
+export const Background = styled.div`
+  background-color: rgba(0,0,0,.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+`;
+
+export const Card = styled.div`
   background-color: #fff;
   border-radius: .5rem;
   height: fit-content;
@@ -21,6 +29,7 @@ export const Container = styled.div`
   min-width: 280px;
   max-width: 500px;
   flex: 1;
+  z-index: 100;
 
   header {
     border-bottom: 1px solid #ddd;

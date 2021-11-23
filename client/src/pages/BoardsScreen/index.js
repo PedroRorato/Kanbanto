@@ -90,7 +90,7 @@ function BoardsScreen() {
           {boards.length > 0 &&
             boards.map(board => (
               <Card key={board.id}>
-                <Link to={`boards/${board.id}`}>
+                <Link to={`/boards/${board.id}`}>
                   <h2>{board.name}</h2>
                 </Link>
               </Card>

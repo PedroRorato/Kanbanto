@@ -34,7 +34,7 @@ export const Card = styled.div`
   header {
     border-bottom: 1px solid #ddd;
     display: flex;
-    padding-bottom: 1rem;
+    padding-bottom: .75rem;
   }
 
   header h2{

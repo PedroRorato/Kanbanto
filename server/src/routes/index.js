@@ -1,4 +1,5 @@
 //Routes
+const authRoutes = require("./authRoutes");
 const boardRoutes = require("./boardRoutes");
 const labelRoutes = require("./labelRoutes");
 const taskRoutes = require("./taskRoutes");
@@ -7,6 +8,7 @@ const taskRoutes = require("./taskRoutes");
 const devUserRoutes = require("./devUserRoutes");
 
 module.exports = app => {
+  app.use(authRoutes);
   app.use(boardRoutes);
   app.use(labelRoutes);
   app.use(taskRoutes);

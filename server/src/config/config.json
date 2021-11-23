@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "root",
+    "username": "pedro",
     "password": "12345678",
     "database": "kanbanto",
     "host": "127.0.0.1",

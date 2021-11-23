@@ -20,7 +20,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const CreateBoardButton = styled.button`
   background-color: #ddd;
   border: 1px solid #ddd;
   border-radius: .25rem;

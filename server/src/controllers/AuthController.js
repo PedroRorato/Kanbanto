@@ -34,15 +34,20 @@ module.exports = {
 
     //Verifica se usuario foi encontrado
     if (!user) {
-      return response.json("Incorrect email or password!");
+      return response.status(500).json("Incorrect email or password!");
     }
     const sessionData = user.toJSON();
 
     //Test password
     const passwordMatched = await compare(password, sessionData.password);
     if (!passwordMatched) {
-      return response.json("Incorrect email or password!");
+      return response.status(500).json("Incorrect email or password!");
     }
+
+    //Remove Password
+    delete sessionData.password;
+    delete sessionData.createdAt;
+    delete sessionData.updatedAt;
 
     //Configura JWT
     const { secret, expiresIn } = authConfig.jwt;

@@ -9,6 +9,7 @@ function Input(props) {
     <Container>
       <label>{labelTitle}</label>
       <input {...props} />
+      {props.error && <small>{props.errorMessage}</small>}
     </Container>
   );
 }

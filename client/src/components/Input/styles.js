@@ -17,4 +17,8 @@ export const Container = styled.div`
     padding: .75rem;
   }
 
+  small {
+    color: firebrick;
+  }
+
 `;

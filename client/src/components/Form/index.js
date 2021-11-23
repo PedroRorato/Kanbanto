@@ -2,9 +2,9 @@ import React from "react";
 
 import { Container } from "./styles";
 
-function Form({ children }) {
+function Form({ children, onSubmit }) {
   return (
-    <Container>
+    <Container onSubmit={onSubmit}>
       {children}
     </Container>
   );

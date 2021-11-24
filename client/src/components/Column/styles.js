@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: #e5e5e5;
+  background-color: #d1d1e0;
   border-radius: .5rem;
   display: flex;
   flex-direction: column;
@@ -10,6 +10,7 @@ export const Container = styled.div`
   padding: .5rem;
 
   h3 {
+    color: #33334d;
     padding-bottom: .75rem;
   }
 

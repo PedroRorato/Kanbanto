@@ -1,12 +1,12 @@
 import React from "react";
 
-// import { Container } from './styles';
+import { Container } from "./styles";
 
 function HomeScreen() {
   return (
-    <div>
-      HomeScreen
-    </div>
+    <Container>
+      <h1>Organize seu projeto com Kanbanto</h1>
+    </Container>
   );
 }
 

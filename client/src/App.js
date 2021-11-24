@@ -1,8 +1,12 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 
 //Context
 import { AuthProvider } from "./contexts/AuthProvider";
+
+//Routes
+import LoggedRoute from "./routes/LoggedRoute";
+import UnloggedRoute from "./routes/UnloggedRoute";
 
 //Pages
 import HomeScreen from "./pages/HomeScreen";
@@ -23,11 +27,11 @@ function App() {
       <GlobalStyle />
       <Layout>
         <Switch>
-          <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/login" component={LoginScreen} />
-          <Route exact path="/register" component={RegisterScreen} />
-          <Route exact path="/boards" component={BoardsScreen} />
-          <Route exact path="/boards/:id" component={BoardScreen} />
+          <UnloggedRoute exact path="/" component={HomeScreen} />
+          <UnloggedRoute exact path="/login" component={LoginScreen} />
+          <UnloggedRoute exact path="/register" component={RegisterScreen} />
+          <LoggedRoute exact path="/boards" component={BoardsScreen} />
+          <LoggedRoute exact path="/boards/:id" component={BoardScreen} />
         </Switch>
       </Layout>
     </AuthProvider>

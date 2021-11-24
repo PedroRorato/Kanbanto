@@ -10,7 +10,7 @@ export const Container = styled.div`
   padding: .5rem;
 
   h3 {
-    color: #33334d;
+    color: #333;
     padding-bottom: .75rem;
   }
 

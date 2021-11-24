@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 
-//Context
-import { useAuth } from "../../contexts/AuthProvider";
+//API
+import api from "../../services/api";
 
 //Components
 import Button from "../../components/Button";
@@ -15,8 +15,8 @@ import Input from "../../components/Input";
 import { Container, CenteredLinks } from "./styles";
 
 //Main
-function LoginScreen() {
-  const { login } = useAuth();
+function RegisterScreen() {
+  let history = useHistory();
 
   const {
     formState: { errors },
@@ -24,10 +24,11 @@ function LoginScreen() {
     handleSubmit,
   } = useForm();
 
-  const loginHandler = async (data) => {
+  const registerHandler = async (data) => {
     try {
-      await login(data);
-      console.log("Login realizado com sucesso!");
+      const response = await api.post("register", data);
+      console.log("response: ", response);
+      history.push("/login");
     } catch (error) {
       console.log(error.response.data);
     }
@@ -37,9 +38,21 @@ function LoginScreen() {
     <Container>
       <Card>
         <header>
-          <h1>Login</h1>
+          <h1>Register</h1>
         </header>
-        <Form onSubmit={handleSubmit(loginHandler)}>
+        <Form onSubmit={handleSubmit(registerHandler)}>
+          <Controller
+            name="name"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                error={errors.name}
+                errorMessage="Name is required"
+                {...field} />
+            )}
+          />
+
           <Controller
             name="email"
             control={control}
@@ -65,12 +78,12 @@ function LoginScreen() {
             )}
           />
 
-          <Button name="Login" type="submit" />
+          <Button name="Register" type="submit" />
         </Form>
 
         <CenteredLinks>
           {/* <div><Link to="/password">Forgot password?</Link></div> */}
-          <div>New to Kanbanto? <Link to="/register">Register</Link></div>
+          <div>Already registered? <Link to="/login">Login</Link></div>
         </CenteredLinks>
 
       </Card>
@@ -78,4 +91,4 @@ function LoginScreen() {
   );
 }
 
-export default LoginScreen;
+export default RegisterScreen;

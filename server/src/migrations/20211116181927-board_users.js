@@ -20,6 +20,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Users", key: "id" }
       },
+      isAdmin: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        default: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

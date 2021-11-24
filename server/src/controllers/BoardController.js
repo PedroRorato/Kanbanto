@@ -23,7 +23,12 @@ module.exports = {
   async show(request, response) {
     const { id } = request.params;
     try {
-      const board = await Board.findByPk(id);
+      const board = await Board.findOne({
+        where: {
+          id
+        },
+        include: "users", order: [["name", "ASC"]]
+      });
       return response.status(200).json(board);
     } catch (error) {
       return response.status(500).json(error.message);

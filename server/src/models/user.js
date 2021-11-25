@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     picture: DataTypes.STRING
   }, {
     defaultScope: {
-      attributes: { exclude: ["password"] },
+      attributes: { exclude: ["password", "createdAt", "updatedAt"] },
     },
     scopes: {
       withPassword: {}

@@ -3,7 +3,7 @@ const { Board } = require("../models");
 module.exports = {
   async index(request, response) {
     try {
-      const boards = await Board.findAll({ include: "users", order: [["name", "ASC"]] });
+      const boards = await Board.findAll({ order: [["name", "ASC"]] });
       return response.status(200).json(boards);
     } catch (error) {
       return response.status(500).json(error.message);
@@ -11,9 +11,12 @@ module.exports = {
   },
 
   async create(request, response) {
-    const data = request.body;
+    const { id } = request.session;
+    const { name, description } = request.body;
+
     try {
-      const newBoard = await Board.create(data);
+      const newBoard = await Board.create({ name, description, adminId: id });
+      await newBoard.addUser(id);
       return response.status(200).json(newBoard);
     } catch (error) {
       return response.status(500).json(error.message);
@@ -23,12 +26,8 @@ module.exports = {
   async show(request, response) {
     const { id } = request.params;
     try {
-      const board = await Board.findOne({
-        where: {
-          id
-        },
-        include: "users", order: [["name", "ASC"]]
-      });
+      const board = await Board.findOne({ where: { id }, include: "users" });
+
       return response.status(200).json(board);
     } catch (error) {
       return response.status(500).json(error.message);
@@ -63,7 +62,7 @@ module.exports = {
     const { userId } = request.body;
     try {
       const board = await Board.findByPk(id);
-      await board.setUsers(userId);
+      await board.addUser(userId);
       return response.status(200).json("User successfully added!");
     } catch (error) {
       return response.status(500).json(error.message);

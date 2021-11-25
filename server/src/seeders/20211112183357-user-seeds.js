@@ -1,21 +1,23 @@
 /* eslint-disable no-unused-vars */
 "use strict";
+const { hash } = require("bcryptjs");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const hashedPassword = await hash("12345", 8);
 
     await queryInterface.bulkInsert("Users", [
       {
         name: "Pedro Rorato",
         email: "pedro@gmail.com",
-        password: "12345",
+        password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: "Maria Cristina",
         email: "maria@gmail.com",
-        password: "12345",
+        password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date()
       }

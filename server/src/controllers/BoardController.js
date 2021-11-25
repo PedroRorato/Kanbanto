@@ -1,10 +1,11 @@
-const { Board } = require("../models");
+const { Board, User } = require("../models");
 
 module.exports = {
   async index(request, response) {
+    const { id } = request.session;
     try {
-      const boards = await Board.findAll({ order: [["name", "ASC"]] });
-      return response.status(200).json(boards);
+      const user = await User.findByPk(id, { include: "boards" });
+      return response.status(200).json(user);
     } catch (error) {
       return response.status(500).json(error.message);
     }

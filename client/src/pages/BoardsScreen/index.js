@@ -20,6 +20,7 @@ import { Container, CreateBoardButton, Card } from "./styles";
 function BoardsScreen() {
   const [boards, setBoards] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [reload, setReload] = useState(0);
 
   const {
     formState: { errors },
@@ -29,9 +30,9 @@ function BoardsScreen() {
 
   useEffect(async () => {
     const { data } = await api.get("boards");
-    console.log(data);
-    setBoards(data);
-  }, []);
+    console.log(data.boards);
+    setBoards(data.boards);
+  }, [reload]);
 
   const createBoardHandler = async (data) => {
     console.log("data", data);
@@ -41,10 +42,12 @@ function BoardsScreen() {
       //
       await api.post("boards", data);
       alert("Empresa criada com sucesso!");
+      setReload(prev => prev + 1);
     } catch (error) {
       alert("Erro ao criar empresa!");
       console.log(error);
     }
+    setShowModal(false);
   };
 
   return (

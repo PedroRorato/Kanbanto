@@ -1,7 +1,6 @@
 import React from "react";
 import { FaEdit, FaTicketAlt, FaPlus, FaUsers } from "react-icons/fa";
 
-
 //Context
 import { useBoard } from "../../contexts/BoardProvider";
 

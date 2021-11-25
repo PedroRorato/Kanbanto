@@ -1,60 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import React from "react";
 
-//API
-import { tasksArr } from "../../database/tasks";
+//Context
+import { BoardProvider } from "../../contexts/BoardProvider";
 
 //Components
 import Column from "../../components/Column";
+import Menu from "../../components/Menu";
 
 //Styles
-import { Container, Menu, ColumnsContainer } from "./styles";
+import { Container, ColumnsContainer } from "./styles";
 
 //Main Function
 const BoardScreen = () => {
-  const { id } = useParams();
-  const [tasks, setTasks] = useState({
-    backlog: [],
-    todo: [],
-    inprogress: [],
-    testing: [],
-    done: []
-  });
-
-  // const [users, setUsers] = useState({});
-
-  useEffect(() => {
-    const taskMap = {
-      backlog: [],
-      todo: [],
-      inprogress: [],
-      testing: [],
-      done: []
-    };
-
-    tasksArr.forEach(task => {
-      taskMap[task.status].push(task);
-    });
-    console.log(taskMap);
-    console.log(taskMap.backlog);
-    setTasks(taskMap);
-  }, [id]);
-
-  console.log("tasks: ", tasks);
 
   return (
-    <Container>
-      <Menu>
-        <h2>Nome do Board</h2>
-      </Menu>
-      <ColumnsContainer>
-        <Column title="Backlog" list={tasks.backlog} />
-        <Column title="To Do" list={tasks.todo} />
-        <Column title="In Progress" list={tasks.inprogress} />
-        <Column title="Testing" list={tasks.testing} />
-        <Column title="Done" list={tasks.done} />
-      </ColumnsContainer>
-    </Container>
+    <BoardProvider>
+      <Container>
+        <Menu />
+        <ColumnsContainer>
+          <Column status="backlog" />
+          <Column status="to-do" />
+          <Column status="in-progress" />
+          <Column status="testing" />
+          <Column status="done" />
+        </ColumnsContainer>
+      </Container>
+    </BoardProvider>
   );
 };
 

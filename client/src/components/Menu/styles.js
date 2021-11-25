@@ -7,15 +7,14 @@ export const Container = styled.div`
   padding: 1.5rem;
 
   button {
-    background-color: #ccc;
+    background-color: #28c98b;
+    color: #fff;
     border: none;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 27px;
     width: 28px;
-    transition: .3s;
   }
 
   button:hover {

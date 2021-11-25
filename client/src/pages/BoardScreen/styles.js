@@ -6,10 +6,6 @@ export const Container = styled.div`
   height: 100%;
 `;
 
-export const Menu = styled.div`
-  padding: 1rem
-`;
-
 export const ColumnsContainer = styled.div`
   flex: 1;
   display: flex;

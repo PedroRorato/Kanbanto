@@ -30,14 +30,10 @@ export const Container = styled.div`
 
   ul button {
     background-color: #222;
-    border: none;
     border-radius: .25rem;
     color: #fff;
-    cursor: pointer;
     margin-left: 1rem;
     padding: .5rem .75rem;
-    text-transform: uppercase;
-    transition: .3s;
   }
 
   ul button:hover {

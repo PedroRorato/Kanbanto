@@ -23,4 +23,12 @@ export default createGlobalStyle`
   ul {
     list-style: none;
   }
+
+  button {
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: .3s;
+  }
 `;

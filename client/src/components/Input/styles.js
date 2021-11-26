@@ -17,6 +17,11 @@ export const Container = styled.div`
     padding: .75rem;
   }
 
+  input[type=color] {
+    height: 44px;
+    width: 100%;
+  }
+
   small {
     color: firebrick;
   }

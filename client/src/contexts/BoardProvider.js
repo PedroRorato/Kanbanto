@@ -13,36 +13,46 @@ export const BoardProvider = ({ children }) => {
   //States
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(0);
 
   //Loader
   useEffect(async () => {
     const { data } = await api.get(`boards/${id}`);
     setBoard(data);
     setLoading(false);
-  }, [id]);
+  }, [id, reload]);
 
-  // const loginHandler = async ({ email, password }) => {
-  //   const response = await api.post("login", { email, password });
-  //   //Token e User
-  //   const { token, sessionData } = response.data;
-  //   //Armazena dados do user
-  //   setUser(sessionData);
-  //   //Armazena no Storage
-  //   localStorage.setItem("@Kanbanto:token", token);
-  //   localStorage.setItem("@Kanbanto:user", JSON.stringify(sessionData));
-  // };
-
-  // const logoutHandler = () => {
-  //   //Limpa Storage
-  //   localStorage.removeItem("@Kanbanto:token");
-  //   localStorage.removeItem("@Kanbanto:user");
-  //   setUser(null);
-  // };
+  //Handlers
+  const updateBoardHandler = async (data) => {
+    try {
+      await api.put(`boards/${id}`, data);
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addLabelHandler = async (data) => {
+    try {
+      await api.post(`boards/${id}/labels`, data);
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const removeLabelHandler = async (id) => {
+    try {
+      await api.delete(`labels/${id}`);
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const context = {
     board: board,
-    // login: loginHandler,
-    // logout: logoutHandler,
+    updateBoard: updateBoardHandler,
+    addLabel: addLabelHandler,
+    removeLabel: removeLabelHandler
   };
 
   return (

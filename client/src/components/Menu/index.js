@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { FaEdit, FaTicketAlt, FaUsers } from "react-icons/fa";
+import { FaEdit, FaTicketAlt, FaTimes, FaUsers } from "react-icons/fa";
 
 //Context
 import { useBoard } from "../../contexts/BoardProvider";
@@ -12,17 +12,17 @@ import Input from "../Input";
 import Modal from "../Modal";
 
 //Styles
-import { Container, BoardInfo, Filters, SelectCreatorGroup } from "./styles";
+import { Container, BoardInfo, Filters, SelectCreatorGroup, List, ListItem } from "./styles";
 
 //Main
 function Menu() {
   //Context
-  const { board, updateBoard } = useBoard();
-  console.log(board);
+  const { board, updateBoard, addLabel, removeLabel } = useBoard();
+  console.log("Reload Board: ", board);
 
   //States
   const [showBoardModal, setShowBoardModal] = useState(false);
-  const [showLabelsModal, setShowLabelsModal] = useState(false);
+  const [showLabelsModal, setShowLabelsModal] = useState(true);
   const [showUsersModal, setShowUsersModal] = useState(false);
 
   //Form
@@ -37,9 +37,20 @@ function Menu() {
 
   //Handlers
   const updateBoardHandler = async (data) => {
-    console.log("updateBoardHandler: ", data);
     await updateBoard(data);
     setShowBoardModal(false);
+  };
+  const addLabelHandler = async (event) => {
+    event.preventDefault();
+    const inputs = event.target;
+    const name = inputs["label-name"].value;
+    const color = inputs["label-color"].value;
+    await addLabel({ name, color });
+    inputs["label-name"].value = "";
+    inputs["label-color"].value = "";
+  };
+  const removeLabelHandler = async (id) => {
+    await removeLabel(id);
   };
   // const addLabelHandler = async (data) => {
   //   console.log("addLabelHandler: ", data);
@@ -80,7 +91,7 @@ function Menu() {
             )}
           />
 
-          <Button name="Update" type="submit" />
+          <Button name="Update Info" type="submit" />
         </Form>
       </Modal>
 
@@ -89,10 +100,24 @@ function Menu() {
         display={showLabelsModal}
         closeModal={() => setShowLabelsModal(false)}
       >
-        <Form>
-          <Input name="Name" />
+        <Form onSubmit={addLabelHandler}>
+          <Input name="name" id="label-name" />
+          <Input type="color" name="color" id="label-color" />
           <Button name="Create Label" type="submit" />
         </Form>
+        <List>
+          {board.labels.map(label => (
+            <ListItem key={label.id} color={label.color}>
+              <div>
+                <span></span>
+                <h3>{label.name}</h3>
+              </div>
+              <div>
+                <button onClick={() => removeLabelHandler(label.id)}><FaTimes /></button>
+              </div>
+            </ListItem>
+          ))}
+        </List>
       </Modal>
 
       <Modal

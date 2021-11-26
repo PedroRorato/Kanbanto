@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Board, { foreignKey: "boardId" });
+      this.belongsTo(models.Board, { as: "board", foreignKey: "boardId" });
       this.belongsToMany(models.Label, { as: "labels", through: "task_labels" });
     }
   }

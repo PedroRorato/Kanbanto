@@ -27,7 +27,9 @@ module.exports = {
   async show(request, response) {
     const { id } = request.params;
     try {
-      const board = await Board.findOne({ where: { id }, include: "users" });
+      const board = await Board.findOne(
+        { where: { id }, include: ["labels", "tasks", "users"] }
+      );
 
       return response.status(200).json(board);
     } catch (error) {

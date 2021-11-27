@@ -54,4 +54,8 @@ export const Card = styled.div`
     color: #333;
     /* transition: .3s; */
   }
+
+  p {
+    padding-bottom: 1rem;
+  }
 `;

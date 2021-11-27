@@ -15,6 +15,7 @@ export const Container = styled.div`
     border-radius: .5rem;
     font-size: 16px;
     padding: .75rem;
+    z-index: 1;
   }
 
   input[type=color] {

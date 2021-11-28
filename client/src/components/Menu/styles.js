@@ -68,6 +68,32 @@ export const List = styled.ul`
   max-height: 185px;
   overflow: hidden;
   overflow-y: scroll;
+
+  h4 {
+    background-color: #f0f0f5;
+    padding: .25rem 0;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+  }
+`;
+
+export const SearchList = styled.ul`
+  border: 1px solid #ccc;
+  /* border-top: none; */
+  border-radius: 0 0 .5rem .5rem;
+  max-height: 185px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-top: .35rem;
+  position: relative;
+  top: -1.35rem;
+
+  h4 {
+    background-color: #f0f0f5;
+    padding: .25rem 0;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+  }
 `;
 
 export const ListItem = styled.li`
@@ -90,8 +116,14 @@ export const ListItem = styled.li`
     margin-right: .5rem;
   }
 
+  h3 {
+    font-weight: normal;
+  }
+
+
+
   button{
-    background-color: #dc3545;
+    background-color: ${props => props.add ? "#28c98b" : "#dc3545"};
     border-radius: .25rem;
     color: #fff;
     display: flex;

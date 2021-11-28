@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { FaEdit, FaTicketAlt, FaTimes, FaUsers } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTicketAlt, FaTimes, FaUsers } from "react-icons/fa";
 
 //Context
 import { useBoard } from "../../contexts/BoardProvider";
@@ -12,17 +12,21 @@ import Input from "../Input";
 import Modal from "../Modal";
 
 //Styles
-import { Container, BoardInfo, Filters, SelectCreatorGroup, List, ListItem } from "./styles";
+import { Container, BoardInfo, Filters, SelectCreatorGroup, List, ListItem, SearchList } from "./styles";
 
 //Main
 function Menu() {
+  // #### Teste #### //
+  const one = 1;
+
+
   //Context
   const { board, updateBoard, addLabel, removeLabel } = useBoard();
   console.log("Reload Board: ", board);
 
   //States
   const [showBoardModal, setShowBoardModal] = useState(false);
-  const [showLabelsModal, setShowLabelsModal] = useState(true);
+  const [showLabelsModal, setShowLabelsModal] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
 
   //Form
@@ -44,6 +48,7 @@ function Menu() {
     event.preventDefault();
     const inputs = event.target;
     const name = inputs["label-name"].value;
+    if (name === "") return;
     const color = inputs["label-color"].value;
     await addLabel({ name, color });
     inputs["label-name"].value = "";
@@ -96,7 +101,7 @@ function Menu() {
       </Modal>
 
       <Modal
-        title="Board Labels"
+        title="Labels"
         display={showLabelsModal}
         closeModal={() => setShowLabelsModal(false)}
       >
@@ -105,19 +110,22 @@ function Menu() {
           <Input type="color" name="color" id="label-color" />
           <Button name="Create Label" type="submit" />
         </Form>
-        <List>
-          {board.labels.map(label => (
-            <ListItem key={label.id} color={label.color}>
-              <div>
-                <span></span>
-                <h3>{label.name}</h3>
-              </div>
-              <div>
-                <button onClick={() => removeLabelHandler(label.id)}><FaTimes /></button>
-              </div>
-            </ListItem>
-          ))}
-        </List>
+        {board.labels.length !== 0 &&
+          <List>
+            <h4>Board Labels</h4>
+            {board.labels.map(label => (
+              <ListItem key={label.id} color={label.color}>
+                <div>
+                  <span></span>
+                  <h3>{label.name}</h3>
+                </div>
+                <div>
+                  <button onClick={() => removeLabelHandler(label.id)}><FaTimes /></button>
+                </div>
+              </ListItem>
+            ))}
+          </List>
+        }
       </Modal>
 
       <Modal
@@ -125,12 +133,37 @@ function Menu() {
         display={showUsersModal}
         closeModal={() => setShowUsersModal(false)}
       >
-        <Form>
-          <Input name="Search" />
+        <Form onSubmit={addLabelHandler}>
+          <Input name="Add" placeholder="Search user email..." id="users-search" />
         </Form>
-        <Form>
-          <Input name="Search" />
-        </Form>
+        {one == 1 ? <p>No results for the search...</p> :
+          <SearchList>
+            {board.users.map(user => (
+              <ListItem key={user.id} add>
+                <div>
+                  <h3>{user.name} <small>({user.email})</small></h3>
+                </div>
+                <div>
+                  <button onClick={() => removeLabelHandler(user.id)}><FaPlus /></button>
+                </div>
+              </ListItem>
+            ))}
+          </SearchList>
+        }
+
+        <List>
+          <h4>Board Users</h4>
+          {board.users.map(user => (
+            <ListItem key={user.id}>
+              <div>
+                <h3>{user.name} <small>({user.email})</small></h3>
+              </div>
+              <div>
+                <button onClick={() => removeLabelHandler(user.id)}><FaTimes /></button>
+              </div>
+            </ListItem>
+          ))}
+        </List>
       </Modal>
 
       <Container>

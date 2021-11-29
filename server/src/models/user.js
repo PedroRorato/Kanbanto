@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsToMany(models.Board, { as: "boards", through: "board_users" });
+      this.belongsToMany(models.Task, { as: "tasks", through: "task_users" });
     }
   }
   User.init({

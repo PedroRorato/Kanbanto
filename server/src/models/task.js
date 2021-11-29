@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Board, { as: "board", foreignKey: "boardId" });
       this.belongsToMany(models.Label, { as: "labels", through: "task_labels" });
+      this.belongsToMany(models.User, { as: "users", through: "task_users" });
     }
   }
   Task.init({
@@ -22,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     startsAt: DataTypes.DATE,
     endsAt: DataTypes.DATE
   }, {
+    defaultScope: {
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: "users"
+    },
     sequelize,
     modelName: "Task",
   });

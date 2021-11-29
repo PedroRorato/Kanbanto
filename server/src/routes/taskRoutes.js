@@ -21,6 +21,12 @@ router.delete(
   verifyAuthentication,
   TaskController.removeLabel
 );
+router.post("/tasks/:id/users", verifyAuthentication, TaskController.addUser);
+router.delete(
+  "/tasks/:taskId/users/:userId",
+  verifyAuthentication,
+  TaskController.removeUser
+);
 
 //Export
 module.exports = router;

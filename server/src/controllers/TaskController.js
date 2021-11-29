@@ -4,7 +4,7 @@ module.exports = {
   async index(request, response) {
     const { boardId } = request.params;
     try {
-      const tasks = await Task.findAll({ where: { boardId }, include: "labels" });
+      const tasks = await Task.findAll({ where: { boardId }, include: ["labels", "users"] });
       return response.status(200).json(tasks);
     } catch (error) {
       return response.status(500).json(error.message);
@@ -15,6 +15,7 @@ module.exports = {
     const { boardId } = request.params;
     const data = request.body;
     data.boardId = parseInt(boardId);
+    data.status = "backlog";
     try {
       const newTask = await Task.create(data);
       return response.status(200).json(newTask);
@@ -61,7 +62,7 @@ module.exports = {
     const { labelId } = request.body;
     try {
       const task = await Task.findByPk(id);
-      await task.setLabels(labelId);
+      await task.addLabel(labelId);
       return response.status(200).json("Label successfully added!");
     } catch (error) {
       return response.status(500).json(error.message);
@@ -74,6 +75,29 @@ module.exports = {
       const task = await Task.findByPk(taskId);
       await task.removeLabels(labelId);
       return response.status(200).json("Label successfully removed!");
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
+  },
+
+  async addUser(request, response) {
+    const { id } = request.params;
+    const { userId } = request.body;
+    try {
+      const task = await Task.findByPk(id);
+      await task.addUser(userId);
+      return response.status(200).json("User successfully added!");
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
+  },
+
+  async removeUser(request, response) {
+    const { taskId, userId } = request.params;
+    try {
+      const task = await Task.findByPk(taskId);
+      await task.removeUsers(userId);
+      return response.status(200).json("User successfully removed!");
     } catch (error) {
       return response.status(500).json(error.message);
     }

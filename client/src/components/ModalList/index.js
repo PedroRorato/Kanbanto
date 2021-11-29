@@ -15,6 +15,7 @@ function ModalList({ title, data, type, removeMethod, updateMethod }) {
               {type === "labels" && <span></span>}
               <h3>{item.name} {type === "users" && <small>({item.email})</small>}</h3>
             </div>
+
             <div>
               {updateMethod &&
                 <button onClick={() => removeMethod(item.id)}><FaTimes /></button>

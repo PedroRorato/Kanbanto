@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-top: 2rem;
   border: 1px solid #ccc;
   border-radius: .5rem;
 
@@ -42,8 +41,6 @@ export const ListItem = styled.li`
   h3 {
     font-weight: normal;
   }
-
-
 
   button{
     background-color: ${props => props.add ? "#28c98b" : "#dc3545"};

@@ -19,18 +19,14 @@ import { Container, BoardInfo, Filters, SelectCreatorGroup, List, ListItem, Sear
 
 //Main
 function Menu() {
-  // #### Teste #### //
-  // const one = 1;
-
 
   //Context
   const { board, updateBoard, addLabel, removeLabel, addUser, removeUser } = useBoard();
-  console.log("Reload Board: ", board);
 
   //States
   const [showBoardModal, setShowBoardModal] = useState(false);
   const [showLabelsModal, setShowLabelsModal] = useState(false);
-  const [showUsersModal, setShowUsersModal] = useState(false);
+  const [showUsersModal, setShowUsersModal] = useState(true);
   const [userSearchResults, setUserSearchResults] = useState([]);
 
   //Form
@@ -68,10 +64,13 @@ function Menu() {
       return;
     }
     const { data } = await api.get("users", { params: { search } });
-    setUserSearchResults(data);
+    const boardUsersId = board.users.map(user => user.id);
+    const users = data.filter(user => !boardUsersId.includes(user.id));
+    setUserSearchResults(users);
   };
   const addUserHandler = async (id) => {
     await addUser(id);
+    setUserSearchResults(prev => prev.filter(user => user.id !== id));
   };
   const removeUserHandler = async (id) => {
     await removeUser(id);

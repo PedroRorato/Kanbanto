@@ -19,10 +19,12 @@ export const Background = styled.div`
   left: 0;
   height: 100vh;
   width: 100vw;
+  z-index: 100;
 `;
 
 export const Card = styled.div`
   background-color: #fff;
+  border: 1px solid #aaa;
   border-radius: .5rem;
   height: fit-content;
   padding: 1rem;

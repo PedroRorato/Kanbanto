@@ -12,7 +12,7 @@ module.exports = {
     const users = await User.findAll({
       where: {
         [Op.or]: [
-          { email: { [Op.like]: "%" + search + "%" } },
+          { email: { [Op.like]: search + "%" } },
           { name: { [Op.like]: "%" + search + "%" } }
         ]
       },

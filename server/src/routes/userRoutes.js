@@ -1,5 +1,8 @@
 const { Router } = require("express");
 
+//Middleware
+const verifyAuthentication = require("../middlewares/verifyAuthentication");
+
 //Controllers
 const UserController = require("../controllers/UserController");
 
@@ -7,7 +10,7 @@ const UserController = require("../controllers/UserController");
 const router = Router();
 
 //Routes
-router.get("/users", UserController.search);
+router.get("/users", verifyAuthentication, UserController.search);
 
 //Export
 module.exports = router;

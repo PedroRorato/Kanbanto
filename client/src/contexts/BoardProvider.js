@@ -63,6 +63,14 @@ export const BoardProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const createTaskHandler = async (data) => {
+    try {
+      await api.post(`boards/${id}/tasks`, data);
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const context = {
     board: board,
@@ -70,7 +78,8 @@ export const BoardProvider = ({ children }) => {
     addLabel: addLabelHandler,
     removeLabel: removeLabelHandler,
     addUser: addUserHandler,
-    removeUser: removeUserHandler
+    removeUser: removeUserHandler,
+    createTask: createTaskHandler
   };
 
   return (

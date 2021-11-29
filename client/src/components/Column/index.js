@@ -1,54 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+
 
 //Context
-// import { useBoard } from "../../contexts/BoardProvider";
+import { useBoard } from "../../contexts/BoardProvider";
 
 //Components
+import Button from "../Button";
+import Form from "../Form";
+import Input from "../Input";
+import Modal from "../Modal";
 import TaskCard from "../TaskCard";
 
 //Styles
 import { Container, TitleContainer } from "./styles";
 
+//Main
 const Column = ({ status }) => {
   const title = status.replaceAll("-", " ");
 
+  //Context
+  const { board, createTask } = useBoard();
+  const list = board.tasks.filter(task => task.status === status);
 
-  const list = [
-    {
-      id: 1,
-      name: "Cortar grama",
-      status: "backlog",
-    },
-    {
-      id: 2,
-      name: "Pintar casa",
-      status: "todo",
-    },
-    {
-      id: 3,
-      name: "Cortar lenha",
-      status: "inprogress",
-    },
-    {
-      id: 4,
-      name: "Plantar árvores",
-      status: "testing",
-    }
-  ];
+  //States
+  const [showModal, setShowModal] = useState(false);
 
+  //Form
+  const {
+    formState: { errors },
+    control,
+    handleSubmit,
+    setValue
+  } = useForm();
+
+  //Handlers
+  const createTaskHandler = async (data) => {
+    await createTask(data);
+    setShowModal(false);
+    setValue("title", "");
+    setValue("description", "");
+  };
 
   return (
-    <Container>
-      <TitleContainer>
-        <h3>{title}</h3>
-        {status === "backlog" && <button>Create Task</button>}
-      </TitleContainer>
+    <>
+      <Modal
+        title="Create Task"
+        display={showModal}
+        closeModal={() => setShowModal(false)}
+      >
+        <Form onSubmit={handleSubmit(createTaskHandler)}>
+          <Controller
+            name="title"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                error={errors.title}
+                errorMessage="title is required"
+                {...field} />
+            )}
+          />
 
+          <Controller
+            name="description"
+            control={control}
+            rules={{ required: false, maxLength: 200 }}
+            render={({ field }) => (
+              <Input
+                error={errors.description}
+                errorMessage="Accepts maximum of 200 characters"
+                {...field} />
+            )}
+          />
+          <Button name="Create Task" type="submit" />
+        </Form>
+      </Modal>
 
-      <ul>
-        {list.map(task => <TaskCard key={task.id} title={task.name} />)}
-      </ul>
-    </Container>
+      <Container>
+        <TitleContainer>
+          <h3>{title}</h3>
+          {status === "backlog" &&
+            <button onClick={() => setShowModal(true)}>Create Task</button>
+          }
+        </TitleContainer>
+        <ul>
+          {list.map(task =>
+            <TaskCard
+              key={task.id}
+              title={task.title}
+            />
+          )}
+        </ul>
+      </Container>
+    </>
   );
 };
 

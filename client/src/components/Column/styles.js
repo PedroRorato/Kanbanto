@@ -31,6 +31,7 @@ export const TitleContainer = styled.div`
     background-color: #28c98b;
     border-radius: .25rem;
     color: #fff;
+
     padding: .25rem .5rem;
   }
 

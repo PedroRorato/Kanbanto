@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { FaEdit, FaPlus, FaTicketAlt, FaTimes, FaUsers } from "react-icons/fa";
 
+//API
+import api from "../../services/api";
+
 //Context
 import { useBoard } from "../../contexts/BoardProvider";
 
@@ -17,17 +20,18 @@ import { Container, BoardInfo, Filters, SelectCreatorGroup, List, ListItem, Sear
 //Main
 function Menu() {
   // #### Teste #### //
-  const one = 1;
+  // const one = 1;
 
 
   //Context
-  const { board, updateBoard, addLabel, removeLabel } = useBoard();
+  const { board, updateBoard, addLabel, removeLabel, addUser, removeUser } = useBoard();
   console.log("Reload Board: ", board);
 
   //States
   const [showBoardModal, setShowBoardModal] = useState(false);
   const [showLabelsModal, setShowLabelsModal] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
+  const [userSearchResults, setUserSearchResults] = useState([]);
 
   //Form
   const {
@@ -57,12 +61,21 @@ function Menu() {
   const removeLabelHandler = async (id) => {
     await removeLabel(id);
   };
-  // const addLabelHandler = async (data) => {
-  //   console.log("addLabelHandler: ", data);
-  // };
-  // const addUserHandler = async (data) => {
-  //   console.log("addUserHandler: ", data);
-  // };
+  const searchUserHandler = async (e) => {
+    const search = e.target.value;
+    if (search === "") {
+      setUserSearchResults([]);
+      return;
+    }
+    const { data } = await api.get("users", { params: { search } });
+    setUserSearchResults(data);
+  };
+  const addUserHandler = async (id) => {
+    await addUser(id);
+  };
+  const removeUserHandler = async (id) => {
+    await removeUser(id);
+  };
 
   return (
     <>
@@ -134,17 +147,22 @@ function Menu() {
         closeModal={() => setShowUsersModal(false)}
       >
         <Form onSubmit={addLabelHandler}>
-          <Input name="Add" placeholder="Search user email..." id="users-search" />
+          <Input
+            id="users-search"
+            name="Add"
+            placeholder="Search user email..."
+            onChange={searchUserHandler}
+          />
         </Form>
-        {one == 1 ? <p>No results for the search...</p> :
+        {userSearchResults.length === 0 ? <p>No results for the search...</p> :
           <SearchList>
-            {board.users.map(user => (
+            {userSearchResults.map(user => (
               <ListItem key={user.id} add>
                 <div>
                   <h3>{user.name} <small>({user.email})</small></h3>
                 </div>
                 <div>
-                  <button onClick={() => removeLabelHandler(user.id)}><FaPlus /></button>
+                  <button onClick={() => addUserHandler(user.id)}><FaPlus /></button>
                 </div>
               </ListItem>
             ))}
@@ -159,7 +177,7 @@ function Menu() {
                 <h3>{user.name} <small>({user.email})</small></h3>
               </div>
               <div>
-                <button onClick={() => removeLabelHandler(user.id)}><FaTimes /></button>
+                <button onClick={() => removeUserHandler(user.id)}><FaTimes /></button>
               </div>
             </ListItem>
           ))}

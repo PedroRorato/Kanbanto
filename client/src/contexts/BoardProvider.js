@@ -47,12 +47,30 @@ export const BoardProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const addUserHandler = async (userId) => {
+    try {
+      await api.post(`boards/${id}/users`, { userId });
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const removeUserHandler = async (userId) => {
+    try {
+      await api.delete(`boards/${id}/users/${userId}`);
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const context = {
     board: board,
     updateBoard: updateBoardHandler,
     addLabel: addLabelHandler,
-    removeLabel: removeLabelHandler
+    removeLabel: removeLabelHandler,
+    addUser: addUserHandler,
+    removeUser: removeUserHandler
   };
 
   return (

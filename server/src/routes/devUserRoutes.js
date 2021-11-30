@@ -7,7 +7,7 @@ const DevUsersController = require("../controllers/DevUsersController");
 const router = Router();
 
 //Routes
-// router.get("/users", DevUsersController.index);
+router.get("/users/all", DevUsersController.index);
 router.post("/users", DevUsersController.create);
 router.get("/users/:id", DevUsersController.show);
 router.put("/users/:id", DevUsersController.update);

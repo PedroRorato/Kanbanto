@@ -1,9 +1,9 @@
 import React from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaUserShield } from "react-icons/fa";
 
-import { Container, ListItem } from "./styles";
+import { Container, ListItem, UpdateButton } from "./styles";
 
-function ModalList({ title, data, type, removeMethod, updateMethod }) {
+function ModalList({ title, data, type, removeMethod, updateMethod, adminId }) {
   return (
     <Container>
       <h4>{title}</h4>
@@ -16,12 +16,16 @@ function ModalList({ title, data, type, removeMethod, updateMethod }) {
               <h3>{item.name} {type === "users" && <small>({item.email})</small>}</h3>
             </div>
 
-            <div>
-              {updateMethod &&
+            {item.id === adminId ? <FaUserShield size={22} /> :
+              <div>
+                {updateMethod &&
+                  <UpdateButton onClick={() => updateMethod(item.id)}>
+                    <FaUserShield />
+                  </UpdateButton>
+                }
                 <button onClick={() => removeMethod(item.id)}><FaTimes /></button>
-              }
-              <button onClick={() => removeMethod(item.id)}><FaTimes /></button>
-            </div>
+              </div>
+            }
           </ListItem>
         ))}
       </ul>

@@ -111,6 +111,14 @@ export const BoardProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const changeAdminHandler = async (adminId) => {
+    try {
+      await api.patch(`boards/${id}/admin`, { adminId });
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const context = {
     board: board,
@@ -124,7 +132,8 @@ export const BoardProvider = ({ children }) => {
     addTaskLabel: addTaskLabelHandler,
     removeTaskLabel: removeTaskLabelHandler,
     addTaskUser: addTaskUserHandler,
-    removeTaskUser: removeTaskUserHandler
+    removeTaskUser: removeTaskUserHandler,
+    changeAdmin: changeAdminHandler
   };
 
   return (

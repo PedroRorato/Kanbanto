@@ -43,7 +43,7 @@ export const ListItem = styled.li`
   }
 
   button{
-    background-color: ${props => props.add ? "#28c98b" : "#dc3545"};
+    background-color: #dc3545;
     border-radius: .25rem;
     color: #fff;
     display: flex;
@@ -56,4 +56,9 @@ export const ListItem = styled.li`
   button:hover {
     opacity: .5;
   }
+`;
+
+export const UpdateButton = styled.button`
+  background-color: #28c98b !important;
+  margin-right: .5rem;
 `;

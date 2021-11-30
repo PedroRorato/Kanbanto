@@ -81,10 +81,23 @@ module.exports = {
     } catch (error) {
       return response.status(500).json(error.message);
     }
+  },
+
+  async changeAdmin(request, response) {
+    const { id } = request.params;
+    const { adminId } = request.body;
+
+    // console.log(`Board ID ${id} | User ID ${adminId}`);
+    // return response.json("teste");
+
+    try {
+      await Board.update({ adminId }, { where: { id } });
+      const updatedBoard = await Board.findByPk(id);
+      return response.status(200).json(updatedBoard);
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
   }
-
-
-  //CHANGE ADMIN
 };
 
 // console.log(`Board ID ${id} | User ID ${userId}`);

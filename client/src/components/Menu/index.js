@@ -22,7 +22,17 @@ import { Container, BoardInfo, Filters, SelectCreatorGroup, ListItem, SearchList
 function Menu() {
 
   //Context
-  const { board, updateBoard, addLabel, removeLabel, addUser, removeUser } = useBoard();
+  const {
+    board,
+    updateBoard,
+    addLabel,
+    removeLabel,
+    addUser,
+    removeUser,
+    changeAdmin
+  } = useBoard();
+
+  console.log(board);
 
   //States
   const [showBoardModal, setShowBoardModal] = useState(false);
@@ -75,6 +85,9 @@ function Menu() {
   };
   const removeUserHandler = async (id) => {
     await removeUser(id);
+  };
+  const changeAdminHandler = async (id) => {
+    await changeAdmin(id);
   };
 
   return (
@@ -166,6 +179,8 @@ function Menu() {
           type="users"
           data={board.users}
           removeMethod={removeUserHandler}
+          updateMethod={changeAdminHandler}
+          adminId={board.adminId}
         />
 
       </Modal>

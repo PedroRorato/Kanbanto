@@ -62,21 +62,6 @@ export const SelectCreatorGroup = styled.div`
 
 `;
 
-export const List = styled.ul`
-  border: 1px solid #ccc;
-  border-radius: .5rem;
-  max-height: 185px;
-  overflow: hidden;
-  overflow-y: scroll;
-
-  h4 {
-    background-color: #f0f0f5;
-    padding: .25rem 0;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-  }
-`;
-
 export const SearchList = styled.ul`
   border: 1px solid #ccc;
   /* border-top: none; */

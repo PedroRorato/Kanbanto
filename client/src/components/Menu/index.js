@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { FaEdit, FaPlus, FaTicketAlt, FaTimes, FaUsers } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTicketAlt, FaUsers } from "react-icons/fa";
 
 //API
 import api from "../../services/api";
@@ -13,9 +13,10 @@ import Button from "../Button";
 import Form from "../Form";
 import Input from "../Input";
 import Modal from "../Modal";
+import ModalList from "../ModalList";
 
 //Styles
-import { Container, BoardInfo, Filters, SelectCreatorGroup, List, ListItem, SearchList } from "./styles";
+import { Container, BoardInfo, Filters, SelectCreatorGroup, ListItem, SearchList } from "./styles";
 
 //Main
 function Menu() {
@@ -26,7 +27,7 @@ function Menu() {
   //States
   const [showBoardModal, setShowBoardModal] = useState(false);
   const [showLabelsModal, setShowLabelsModal] = useState(false);
-  const [showUsersModal, setShowUsersModal] = useState(true);
+  const [showUsersModal, setShowUsersModal] = useState(false);
   const [userSearchResults, setUserSearchResults] = useState([]);
 
   //Form
@@ -123,20 +124,12 @@ function Menu() {
           <Button name="Create Label" type="submit" />
         </Form>
         {board.labels.length !== 0 &&
-          <List>
-            <h4>Board Labels</h4>
-            {board.labels.map(label => (
-              <ListItem key={label.id} color={label.color}>
-                <div>
-                  <span></span>
-                  <h3>{label.name}</h3>
-                </div>
-                <div>
-                  <button onClick={() => removeLabelHandler(label.id)}><FaTimes /></button>
-                </div>
-              </ListItem>
-            ))}
-          </List>
+          <ModalList
+            title="Board Labels"
+            type="labels"
+            data={board.labels}
+            removeMethod={removeLabelHandler}
+          />
         }
       </Modal>
 
@@ -145,7 +138,7 @@ function Menu() {
         display={showUsersModal}
         closeModal={() => setShowUsersModal(false)}
       >
-        <Form onSubmit={addLabelHandler}>
+        <Form>
           <Input
             id="users-search"
             name="Add"
@@ -168,19 +161,13 @@ function Menu() {
           </SearchList>
         }
 
-        <List>
-          <h4>Board Users</h4>
-          {board.users.map(user => (
-            <ListItem key={user.id}>
-              <div>
-                <h3>{user.name} <small>({user.email})</small></h3>
-              </div>
-              <div>
-                <button onClick={() => removeUserHandler(user.id)}><FaTimes /></button>
-              </div>
-            </ListItem>
-          ))}
-        </List>
+        <ModalList
+          title="Board Users"
+          type="users"
+          data={board.users}
+          removeMethod={removeUserHandler}
+        />
+
       </Modal>
 
       <Container>

@@ -18,6 +18,7 @@ const Header = () => {
         <>
           <ul>
             <li><Link to="/boards">Boards</Link></li>
+            <li><Link to="/settings">Settings</Link></li>
             <button onClick={logout}>Logout</button>
           </ul>
         </> :

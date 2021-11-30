@@ -11,3 +11,12 @@ export const Container = styled.li`
     opacity: .7;
   }
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+
+  button {
+    flex: 1;
+  }
+`;

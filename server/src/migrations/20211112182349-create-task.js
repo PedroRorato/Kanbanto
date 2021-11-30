@@ -27,7 +27,8 @@ module.exports = {
       boardId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: "Boards", key: "id" }
+        references: { model: "Boards", key: "id" },
+        onDelete: "cascade"
       },
       createdAt: {
         allowNull: false,

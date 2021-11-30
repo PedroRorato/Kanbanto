@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     defaultScope: {
       attributes: { exclude: ["createdAt", "updatedAt"] },
-      include: "users"
+      include: ["labels", "users"]
     },
     sequelize,
     modelName: "Task",

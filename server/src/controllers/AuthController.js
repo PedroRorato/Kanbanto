@@ -57,6 +57,19 @@ module.exports = {
     });
 
     return response.json({ token, sessionData });
+  },
+
+  async updateProfile(request, response) {
+    const { id } = request.session;
+    const data = request.body;
+
+    try {
+      await User.update(data, { where: { id } });
+      const updatedUser = await User.findByPk(id);
+      return response.status(200).json(updatedUser);
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
   }
 
 };

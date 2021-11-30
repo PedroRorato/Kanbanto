@@ -15,7 +15,7 @@ import { Container, ExtraButtonsContainer } from "./styles";
 
 function SettingsScreen() {
   //Context
-  const { user } = useAuth();
+  const { user, updateProfile } = useAuth();
 
   //Form
   const {
@@ -28,8 +28,8 @@ function SettingsScreen() {
   setValue("email", user.email);
 
   //Handlers
-  const updateProfileHandler = (data) => {
-    console.log(data);
+  const updateProfileHandler = async (data) => {
+    await updateProfile(data);
   };
 
   return (

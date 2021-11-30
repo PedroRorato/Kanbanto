@@ -48,10 +48,17 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const updateProfileHandler = async ({ name, email }) => {
+    const { data } = await api.put("profile", { name, email });
+    localStorage.setItem("@Kanbanto:user", JSON.stringify(data));
+    setUser(data);
+  };
+
   const context = {
     user: user,
     login: loginHandler,
     logout: logoutHandler,
+    updateProfile: updateProfileHandler
   };
 
   return (

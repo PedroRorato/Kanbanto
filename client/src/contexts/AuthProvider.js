@@ -48,11 +48,12 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const updateProfileHandler = async ({ name, email }) => {
+  const updateProfileHandler = async ({ name, email, initials }) => {
     try {
-      const { data } = await api.put("profile", { name, email });
+      const { data } = await api.put("profile", { name, email, initials });
       localStorage.setItem("@Kanbanto:user", JSON.stringify(data));
       setUser(data);
+      console.log(data);
     } catch (error) {
       console.log(error.message);
     }

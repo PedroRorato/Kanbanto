@@ -10,6 +10,7 @@ module.exports = {
       {
         name: "Pedro Rorato",
         email: "pedro@gmail.com",
+        initials: "PR",
         password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -17,6 +18,7 @@ module.exports = {
       {
         name: "Maria Cristina",
         email: "maria@gmail.com",
+        initials: "MC",
         password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date()

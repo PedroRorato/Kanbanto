@@ -13,10 +13,12 @@ module.exports = {
   async register(request, response) {
     const { name, email, password } = request.body;
 
+    const initials = name.substring(0, 2);
+
     const hashedPassword = await hash(password, 8);
 
     try {
-      await User.create({ name, email, password: hashedPassword });
+      await User.create({ name, email, initials, password: hashedPassword });
       return response.status(200).json("User successfully created!");
     } catch (error) {
       return response.status(500).json(error.message);

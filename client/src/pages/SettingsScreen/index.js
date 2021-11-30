@@ -30,6 +30,7 @@ function SettingsScreen() {
   } = useForm();
   setValue("name", user.name);
   setValue("email", user.email);
+  setValue("initials", user.initials);
 
   //Handlers
   const updateProfileHandler = async (data) => {
@@ -102,6 +103,18 @@ function SettingsScreen() {
                 <Input
                   error={errors.email}
                   errorMessage="Email is required"
+                  {...field} />
+              )}
+            />
+
+            <Controller
+              name="initials"
+              control={control}
+              rules={{ required: true, maxLength: 3 }}
+              render={({ field }) => (
+                <Input
+                  error={errors.initials}
+                  errorMessage="Initials are required. Must be 2 characters."
                   {...field} />
               )}
             />

@@ -87,9 +87,6 @@ module.exports = {
     const { id } = request.params;
     const { adminId } = request.body;
 
-    // console.log(`Board ID ${id} | User ID ${adminId}`);
-    // return response.json("teste");
-
     try {
       await Board.update({ adminId }, { where: { id } });
       const updatedBoard = await Board.findByPk(id);
@@ -99,5 +96,3 @@ module.exports = {
     }
   }
 };
-
-// console.log(`Board ID ${id} | User ID ${userId}`);

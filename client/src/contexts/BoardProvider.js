@@ -79,6 +79,38 @@ export const BoardProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const addTaskLabelHandler = async (taskId, labelId) => {
+    try {
+      await api.post(`tasks/${taskId}/labels`, { labelId });
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const removeTaskLabelHandler = async (taskId, userId) => {
+    try {
+      await api.delete(`tasks/${taskId}/labels/${userId}`);
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const addTaskUserHandler = async (taskId, userId) => {
+    try {
+      await api.post(`tasks/${taskId}/users`, { userId });
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const removeTaskUserHandler = async (taskId, userId) => {
+    try {
+      await api.delete(`tasks/${taskId}/users/${userId}`);
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const context = {
     board: board,
@@ -88,7 +120,11 @@ export const BoardProvider = ({ children }) => {
     addUser: addUserHandler,
     removeUser: removeUserHandler,
     createTask: createTaskHandler,
-    updateTask: updateTaskHandler
+    updateTask: updateTaskHandler,
+    addTaskLabel: addTaskLabelHandler,
+    removeTaskLabel: removeTaskLabelHandler,
+    addTaskUser: addTaskUserHandler,
+    removeTaskUser: removeTaskUserHandler
   };
 
   return (

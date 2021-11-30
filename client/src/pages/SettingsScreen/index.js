@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 //Context
@@ -9,13 +9,17 @@ import Button from "../../components/Button";
 import Card from "../../components/Card";
 import Form from "../../components/Form";
 import Input from "../../components/Input";
+import Modal from "../../components/Modal";
 
 //Styles
 import { Container, ExtraButtonsContainer } from "./styles";
 
 function SettingsScreen() {
   //Context
-  const { user, updateProfile } = useAuth();
+  const { user, updateProfile, changePassword } = useAuth();
+
+  //State
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   //Form
   const {
@@ -31,47 +35,87 @@ function SettingsScreen() {
   const updateProfileHandler = async (data) => {
     await updateProfile(data);
   };
+  const changePasswordHandler = async (e) => {
+    e.preventDefault();
+    const password = e.target[0].value;
+    const confirmPassword = e.target[1].value;
+    console.log();
+    if (password !== confirmPassword) {
+      alert("Different passwords!");
+      return;
+    }
+    await changePassword(password);
+    setShowPasswordModal(false);
+    e.target[0].value = "";
+    e.target[1].value = "";
+  };
 
   return (
-    <Container>
-      <Card>
-        <header>
-          <h1>Profile Info</h1>
-        </header>
-        <Form onSubmit={handleSubmit(updateProfileHandler)}>
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Input
-                error={errors.name}
-                errorMessage="Name is required"
-                {...field} />
-            )}
+    <>
+      <Modal
+        title="Change Password"
+        display={showPasswordModal}
+        closeModal={() => setShowPasswordModal(false)}
+      >
+        <Form onSubmit={changePasswordHandler}>
+          <Input
+            id="password"
+            name="password"
+            title="New Password"
+            type="password"
           />
 
-          <Controller
-            name="email"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Input
-                error={errors.email}
-                errorMessage="Email is required"
-                {...field} />
-            )}
+          <Input
+            id="confirm-password"
+            name="confirm-password"
+            title="Confirm Password"
+            type="password"
           />
 
-          <Button name="Update Profile" type="submit" />
-        </Form>
-
-        <ExtraButtonsContainer>
           <Button name="Change Password" type="submit" />
-        </ExtraButtonsContainer>
+        </Form>
+      </Modal>
 
-      </Card>
-    </Container>
+      <Container>
+        <Card>
+          <header>
+            <h1>Profile Info</h1>
+          </header>
+          <Form onSubmit={handleSubmit(updateProfileHandler)}>
+            <Controller
+              name="name"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Input
+                  error={errors.name}
+                  errorMessage="Name is required"
+                  {...field} />
+              )}
+            />
+
+            <Controller
+              name="email"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Input
+                  error={errors.email}
+                  errorMessage="Email is required"
+                  {...field} />
+              )}
+            />
+
+            <Button name="Update Profile" type="submit" />
+          </Form>
+
+          <ExtraButtonsContainer>
+            <Button name="Change Password" onClick={() => setShowPasswordModal(true)} />
+          </ExtraButtonsContainer>
+
+        </Card>
+      </Container>
+    </>
   );
 }
 

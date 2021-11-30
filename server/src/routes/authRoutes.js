@@ -13,6 +13,7 @@ const router = Router();
 router.post("/register", AuthController.register);
 router.post("/login", AuthController.login);
 router.put("/profile", verifyAuthentication, AuthController.updateProfile);
+router.patch("/secret", verifyAuthentication, AuthController.changePassword);
 
 //Export
 module.exports = router;

@@ -70,6 +70,19 @@ module.exports = {
     } catch (error) {
       return response.status(500).json(error.message);
     }
+  },
+
+  async changePassword(request, response) {
+    const { id } = request.session;
+    const { password } = request.body;
+    const hashedPassword = await hash(password, 8);
+
+    try {
+      await User.update({ password: hashedPassword }, { where: { id } });
+      return response.status(200).json("Password successfully changed!");
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
   }
 
 };

@@ -49,16 +49,29 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateProfileHandler = async ({ name, email }) => {
-    const { data } = await api.put("profile", { name, email });
-    localStorage.setItem("@Kanbanto:user", JSON.stringify(data));
-    setUser(data);
+    try {
+      const { data } = await api.put("profile", { name, email });
+      localStorage.setItem("@Kanbanto:user", JSON.stringify(data));
+      setUser(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const changePasswordHandler = async (password) => {
+    try {
+      await api.patch("secret", { password });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const context = {
     user: user,
     login: loginHandler,
     logout: logoutHandler,
-    updateProfile: updateProfileHandler
+    updateProfile: updateProfileHandler,
+    changePassword: changePasswordHandler
   };
 
   return (

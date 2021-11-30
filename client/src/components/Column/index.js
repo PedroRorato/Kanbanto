@@ -88,7 +88,7 @@ const Column = ({ status }) => {
           {list.map(task =>
             <TaskCard
               key={task.id}
-              title={task.title}
+              taskData={task}
             />
           )}
         </ul>

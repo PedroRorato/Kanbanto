@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { FaEdit } from "react-icons/fa";
 
 //Context
 import { useBoard } from "../../contexts/BoardProvider";
@@ -13,16 +14,18 @@ import ModalList from "../ModalList";
 import ModalSearchList from "../ModalSearchList";
 
 //Styles
-import { Container, ButtonsContainer } from "./styles";
+import { Container, AttachedList, LabelCard, LabelBadge, UserBadge } from "./styles";
 
 //Main Function
 function TaskCard({ taskData }) {
   //Context
   const {
-    board, updateTask,
+    board,
+    updateTask,
     addTaskLabel,
     removeTaskLabel,
-    addTaskUser, removeTaskUser
+    addTaskUser,
+    removeTaskUser
   } = useBoard();
 
   //Form
@@ -127,10 +130,44 @@ function TaskCard({ taskData }) {
           />
           <Button name="Update Task" type="submit" />
         </Form>
-        <ButtonsContainer>
-          <Button name="Labels" onClick={() => setShowLabelModal(true)} />
-          <Button name="Users" onClick={() => setShowUsersModal(true)} />
-        </ButtonsContainer>
+        <AttachedList>
+          <h4>Labels</h4>
+          <div>
+            {taskData.labels.length === 0 ? <p>This task has no Labels...</p> :
+              <ul>
+                {taskData.labels.map(label => (
+                  <LabelCard key={label.id}>
+                    <LabelBadge color={label.color} />
+                    {label.name}
+                  </LabelCard>
+                ))}
+              </ul>
+            }
+            <button onClick={() => setShowLabelModal(true)}>
+              <FaEdit />
+            </button>
+          </div>
+        </AttachedList>
+        <AttachedList>
+          <h4>Assigned Users</h4>
+          <div>
+            {taskData.users.length === 0 ? <p>This task has no Assigned Users...</p> :
+              <ul>
+                {taskData.users.map(user => <UserBadge key={user.id}>{user.initials}</UserBadge>)}
+              </ul>
+            }
+            <button onClick={() => setShowUsersModal(true)}>
+              <FaEdit />
+            </button>
+          </div>
+        </AttachedList>
+        <AttachedList>
+          <h4>Change Status</h4>
+          <div>
+            <button onClick={() => setShowUsersModal(true)}>In Progress</button>
+            <button onClick={() => setShowUsersModal(true)}>Done</button>
+          </div>
+        </AttachedList>
       </Modal>
 
       <Modal
@@ -189,7 +226,13 @@ function TaskCard({ taskData }) {
       </Modal>
 
       <Container onClick={() => setShowTaskModal(true)}>
-        {taskData.title}
+        <div>
+          {taskData.labels.map(label => <LabelBadge key={label.id} color={label.color} />)}
+        </div>
+        <div>{taskData.title}</div>
+        <div>
+          {taskData.users.map(user => <UserBadge key={user.id}>{user.initials}</UserBadge>)}
+        </div>
       </Container>
     </>
   );

@@ -10,4 +10,8 @@ export const Container = styled.button`
   &:hover {
     opacity: .7;
   }
+
+  & + button {
+    margin-left: 1rem;
+  }
 `;

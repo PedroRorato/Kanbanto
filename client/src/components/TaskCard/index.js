@@ -14,10 +14,49 @@ import ModalList from "../ModalList";
 import ModalSearchList from "../ModalSearchList";
 
 //Styles
-import { Container, AttachedList, LabelCard, LabelBadge, UserBadge } from "./styles";
+import {
+  Container, AttachedList, AttachedButtons, LabelCard, LabelBadge, UserBadge
+} from "./styles";
 
 //Main Function
 function TaskCard({ taskData }) {
+
+  let changeStatus = null;
+  switch (taskData.status) {
+    case "backlog":
+      changeStatus = (
+        <div>
+          <Button name="To Do" onClick={() => changeTaskStatusHandler("to-do")} />
+        </div>
+      );
+      break;
+
+    case "to-do":
+      changeStatus = (
+        <div>
+          <Button name="In Progress" onClick={() => changeTaskStatusHandler("in-progress")} />
+        </div>
+      );
+      break;
+
+    case "in-progress":
+      changeStatus = (
+        <div>
+          <Button name="Testing" onClick={() => changeTaskStatusHandler("testing")} />
+        </div>
+      );
+      break;
+
+    case "testing":
+      changeStatus = (
+        <div>
+          <Button name="In Progress" onClick={() => changeTaskStatusHandler("in-progress")} />
+          <Button name="Done" onClick={() => changeTaskStatusHandler("done")} />
+        </div>
+      );
+      break;
+  }
+
   //Context
   const {
     board,
@@ -25,7 +64,8 @@ function TaskCard({ taskData }) {
     addTaskLabel,
     removeTaskLabel,
     addTaskUser,
-    removeTaskUser
+    removeTaskUser,
+    changeTaskStatus
   } = useBoard();
 
   //Form
@@ -95,6 +135,9 @@ function TaskCard({ taskData }) {
   const removeUserHandler = async (id) => {
     await removeTaskUser(taskData.id, id);
   };
+  const changeTaskStatusHandler = async (status) => {
+    await changeTaskStatus(taskData.id, status);
+  };
 
 
   return (
@@ -161,13 +204,15 @@ function TaskCard({ taskData }) {
             </button>
           </div>
         </AttachedList>
-        <AttachedList>
-          <h4>Change Status</h4>
-          <div>
-            <button onClick={() => setShowUsersModal(true)}>In Progress</button>
-            <button onClick={() => setShowUsersModal(true)}>Done</button>
-          </div>
-        </AttachedList>
+        {changeStatus &&
+          <>
+            <AttachedButtons>
+              <h4>Change Status</h4>
+              {changeStatus}
+            </AttachedButtons>
+
+          </>
+        }
       </Modal>
 
       <Modal

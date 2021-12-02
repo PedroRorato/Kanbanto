@@ -14,11 +14,13 @@ export const BoardProvider = ({ children }) => {
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [reload, setReload] = useState(0);
+  const [filteredTasks, setFilteredTasks] = useState([]);
 
   //Loader
   useEffect(async () => {
     const { data } = await api.get(`boards/${id}`);
     setBoard(data);
+    setFilteredTasks(data.tasks);
     setLoading(false);
   }, [id, reload]);
 
@@ -119,9 +121,22 @@ export const BoardProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const filterTaskHandler = () => {
+    console.log();
+  };
+  const changeTaskStatusHandler = async (taskId, status) => {
+    try {
+      await api.put(`tasks/${taskId}`, { status });
+      setReload(prev => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const context = {
     board: board,
+    filteredTasks: filteredTasks,
+    filterTask: filterTaskHandler,
     updateBoard: updateBoardHandler,
     addLabel: addLabelHandler,
     removeLabel: removeLabelHandler,
@@ -133,7 +148,8 @@ export const BoardProvider = ({ children }) => {
     removeTaskLabel: removeTaskLabelHandler,
     addTaskUser: addTaskUserHandler,
     removeTaskUser: removeTaskUserHandler,
-    changeAdmin: changeAdminHandler
+    changeAdmin: changeAdminHandler,
+    changeTaskStatus: changeTaskStatusHandler
   };
 
   return (

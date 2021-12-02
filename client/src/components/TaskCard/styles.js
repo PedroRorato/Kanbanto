@@ -77,4 +77,16 @@ export const AttachedList = styled.div`
     min-width: 28px;
     padding: .5rem;
   }
+
+  button:hover {
+    opacity: .7;
+  }
+`;
+
+export const AttachedButtons = styled.div`
+  padding-bottom: .75rem;
+
+  h4 {
+    padding-bottom: .5rem;
+  }
 `;

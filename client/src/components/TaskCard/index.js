@@ -21,6 +21,8 @@ import {
 //Main Function
 function TaskCard({ taskData }) {
 
+  console.log(taskData.labels);
+
   let changeStatus = null;
   switch (taskData.status) {
     case "backlog":
@@ -210,7 +212,6 @@ function TaskCard({ taskData }) {
               <h4>Change Status</h4>
               {changeStatus}
             </AttachedButtons>
-
           </>
         }
       </Modal>

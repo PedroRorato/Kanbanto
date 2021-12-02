@@ -121,8 +121,31 @@ export const BoardProvider = ({ children }) => {
       console.log(error);
     }
   };
-  const filterTaskHandler = () => {
-    console.log();
+  const filterTasksHandler = (labelId, userId) => {
+    let filteredTasksArr = board.tasks;
+    if (labelId !== "all") {
+      let newArr = [];
+      for (let i = 0; i < filteredTasksArr.length; i++) {
+        const task = filteredTasksArr[i];
+        for (let j = 0; j < task.labels.length; j++) {
+          const label = task.labels[j];
+          if (label.id == labelId) newArr.push(task);
+        }
+      }
+      filteredTasksArr = newArr;
+    }
+    if (userId !== "all") {
+      let newArr = [];
+      for (let i = 0; i < filteredTasksArr.length; i++) {
+        const task = filteredTasksArr[i];
+        for (let j = 0; j < task.users.length; j++) {
+          const user = task.users[j];
+          if (user.id == userId) newArr.push(task);
+        }
+      }
+      filteredTasksArr = newArr;
+    }
+    setFilteredTasks(filteredTasksArr);
   };
   const changeTaskStatusHandler = async (taskId, status) => {
     try {
@@ -136,7 +159,7 @@ export const BoardProvider = ({ children }) => {
   const context = {
     board: board,
     filteredTasks: filteredTasks,
-    filterTask: filterTaskHandler,
+    filterTasks: filterTasksHandler,
     updateBoard: updateBoardHandler,
     addLabel: addLabelHandler,
     removeLabel: removeLabelHandler,

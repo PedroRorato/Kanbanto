@@ -16,7 +16,9 @@ import Modal from "../Modal";
 import ModalList from "../ModalList";
 
 //Styles
-import { Container, BoardInfo, Filters, SelectCreatorGroup, ListItem, SearchList } from "./styles";
+import {
+  Container, BoardInfo, Filters, SelectCreatorGroup, ListItem, SearchList
+} from "./styles";
 
 //Main
 function Menu() {
@@ -29,7 +31,8 @@ function Menu() {
     removeLabel,
     addUser,
     removeUser,
-    changeAdmin
+    changeAdmin,
+    filterTasks
   } = useBoard();
 
   console.log(board);
@@ -39,6 +42,8 @@ function Menu() {
   const [showLabelsModal, setShowLabelsModal] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
   const [userSearchResults, setUserSearchResults] = useState([]);
+  const [filteredLabel, setFilteredLabel] = useState("all");
+  const [filteredUser, setFilteredUser] = useState("all");
 
   //Form
   const {
@@ -88,6 +93,14 @@ function Menu() {
   };
   const changeAdminHandler = async (id) => {
     await changeAdmin(id);
+  };
+  const selectLabelHandler = (e) => {
+    setFilteredLabel(e.target.value);
+    filterTasks(e.target.value, filteredUser);
+  };
+  const selectUserHandler = (e) => {
+    setFilteredUser(e.target.value);
+    filterTasks(filteredLabel, e.target.value);
   };
 
   return (
@@ -196,7 +209,7 @@ function Menu() {
         <Filters>
           <SelectCreatorGroup>
             <div><FaTicketAlt size={20} /></div>
-            <select>
+            <select onChange={selectLabelHandler} value={filteredLabel}>
               <option value="all">ALL</option>
               {
                 board.labels.map(label => (
@@ -211,7 +224,7 @@ function Menu() {
 
           <SelectCreatorGroup>
             <div><FaUsers size={22} /></div>
-            <select>
+            <select onChange={selectUserHandler} value={filteredUser}>
               <option value="all">ALL</option>
               {
                 board.users.map(user => (

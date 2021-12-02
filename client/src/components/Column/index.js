@@ -20,8 +20,8 @@ const Column = ({ status }) => {
   const title = status.replaceAll("-", " ");
 
   //Context
-  const { board, createTask } = useBoard();
-  const list = board.tasks.filter(task => task.status === status);
+  const { filteredTasks, createTask } = useBoard();
+  const list = filteredTasks.filter(task => task.status === status);
 
   //States
   const [showModal, setShowModal] = useState(false);

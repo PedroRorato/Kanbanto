@@ -46,6 +46,18 @@ module.exports = {
     }
   },
 
+  async changeStatus(request, response) {
+    const { id } = request.params;
+    const { status } = request.body;
+    try {
+      await Task.update({ status }, { where: { id } });
+      const updatedTask = await Task.findByPk(id);
+      return response.status(200).json(updatedTask);
+    } catch (error) {
+      return response.status(500).json(error.message);
+    }
+  },
+
   async delete(request, response) {
     const { id } = request.params;
     try {

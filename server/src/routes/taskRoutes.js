@@ -14,6 +14,7 @@ router.get("/boards/:boardId/tasks", verifyAuthentication, TaskController.index)
 router.post("/boards/:boardId/tasks", verifyAuthentication, TaskController.create);
 router.get("/tasks/:id", verifyAuthentication, TaskController.show);
 router.put("/tasks/:id", verifyAuthentication, TaskController.update);
+router.patch("/tasks/:id", verifyAuthentication, TaskController.changeStatus);
 router.delete("/tasks/:id", verifyAuthentication, TaskController.delete);
 router.post("/tasks/:id/labels", verifyAuthentication, TaskController.addLabel);
 router.delete(

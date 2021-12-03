@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
+  max-width: 1445px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem;
+  padding: 1rem;
 
   button {
     background-color: #28c98b;
@@ -27,16 +29,50 @@ export const BoardInfo = styled.div`
   display: flex;
   align-items: center;
 
+  h2 {
+    max-width: 234px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   button {
     margin-left: .5rem;
     border-radius: .25rem;
   }
+
+  @media only screen and (max-width: 575px) {
+    h2 {
+      max-width: 190px;
+    }
+  }
+`;
+
+export const FilterModal = styled.div`
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding:1rem 0;
 `;
 
 export const Filters = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
+`;
+
+export const FilterButton = styled.button`
+  display: none !important;
+  border-radius: .25rem;
+
+  @media only screen and (max-width: 767px) {
+    display: flex !important;
+  }
 `;
 
 export const SelectCreatorGroup = styled.div`
@@ -57,9 +93,25 @@ export const SelectCreatorGroup = styled.div`
   }
 
   button {
+    background-color: #28c98b;
     border-radius: 0 .25rem .25rem 0;
+    color: #fff;
   }
 
+  @media only screen and (max-width: 767px) {
+    select {
+      border: 1px solid #ccc;
+      border-radius: .5rem 0 0 .5rem ;
+      height: 45px;
+      flex: 1;
+      font-size: 16px;
+    }
+
+    button {
+      border-radius: 0 .5rem .5rem 0;
+      width: 45px;
+    }
+  }
 `;
 
 export const SearchList = styled.ul`

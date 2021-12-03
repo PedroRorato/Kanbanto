@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { FaEdit, FaPlus, FaTicketAlt, FaUsers } from "react-icons/fa";
+import { FaEdit, FaFilter, FaPlus, FaTicketAlt, FaUsers } from "react-icons/fa";
 
 //API
 import api from "../../services/api";
@@ -17,7 +17,14 @@ import ModalList from "../ModalList";
 
 //Styles
 import {
-  Container, BoardInfo, Filters, SelectCreatorGroup, ListItem, SearchList
+  Container,
+  BoardInfo,
+  Filters,
+  SelectCreatorGroup,
+  ListItem,
+  SearchList,
+  FilterButton,
+  FilterModal
 } from "./styles";
 
 //Main
@@ -32,18 +39,20 @@ function Menu() {
     addUser,
     removeUser,
     changeAdmin,
-    filterTasks
+    filterTasks,
   } = useBoard();
 
   console.log(board);
 
   //States
   const [showBoardModal, setShowBoardModal] = useState(false);
+  const [showFilterModal, setShowFilterModal] = useState(false);
   const [showLabelsModal, setShowLabelsModal] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
   const [userSearchResults, setUserSearchResults] = useState([]);
   const [filteredLabel, setFilteredLabel] = useState("all");
   const [filteredUser, setFilteredUser] = useState("all");
+
 
   //Form
   const {
@@ -140,6 +149,44 @@ function Menu() {
       </Modal>
 
       <Modal
+        title="Filters"
+        display={showFilterModal}
+        closeModal={() => setShowFilterModal(false)}
+      >
+        <FilterModal>
+          <SelectCreatorGroup>
+            <div><FaTicketAlt size={20} /></div>
+            <select onChange={selectLabelHandler} value={filteredLabel}>
+              <option value="all">ALL</option>
+              {
+                board.labels.map(label => (
+                  <option key={label.id} value={label.id}>{label.name}</option>
+                ))
+              }
+            </select>
+            <button onClick={() => setShowLabelsModal(true)}>
+              <FaEdit size={15} />
+            </button>
+          </SelectCreatorGroup>
+
+          <SelectCreatorGroup>
+            <div><FaUsers size={22} /></div>
+            <select onChange={selectUserHandler} value={filteredUser}>
+              <option value="all">ALL</option>
+              {
+                board.users.map(user => (
+                  <option key={user.id} value={user.id}>{user.name}</option>
+                ))
+              }
+            </select>
+            <button onClick={() => setShowUsersModal(true)}>
+              <FaEdit size={15} />
+            </button>
+          </SelectCreatorGroup>
+        </FilterModal>
+      </Modal>
+
+      <Modal
         title="Labels"
         display={showLabelsModal}
         closeModal={() => setShowLabelsModal(false)}
@@ -201,10 +248,14 @@ function Menu() {
       <Container>
         <BoardInfo>
           <h2>{board.name}</h2>
-          <button onClick={() => setShowBoardModal(true)}>
+          <button onClick={() => setShowFilterModal(true)}>
             <FaEdit size={15} />
           </button>
         </BoardInfo>
+
+        <FilterButton onClick={() => setShowFilterModal(true)}>
+          <FaFilter size={15} />
+        </FilterButton>
 
         <Filters>
           <SelectCreatorGroup>

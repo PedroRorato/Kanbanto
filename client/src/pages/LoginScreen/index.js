@@ -16,66 +16,66 @@ import { Container, CenteredLinks } from "./styles";
 
 //Main
 function LoginScreen() {
-  const { login } = useAuth();
+	const { login } = useAuth();
 
-  const {
-    formState: { errors },
-    control,
-    handleSubmit,
-  } = useForm();
+	const {
+		formState: { errors },
+		control,
+		handleSubmit,
+	} = useForm();
 
-  const loginHandler = async (data) => {
-    try {
-      await login(data);
-      console.log("Login realizado com sucesso!");
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  };
+	const loginHandler = async (data) => {
+		try {
+			await login(data);
+			console.log("Login realizado com sucesso!");
+		} catch (error) {
+			console.log("erro:", error);
+		}
+	};
 
-  return (
-    <Container>
-      <Card>
-        <header>
-          <h1>Login</h1>
-        </header>
-        <Form onSubmit={handleSubmit(loginHandler)}>
-          <Controller
-            name="email"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Input
-                error={errors.email}
-                errorMessage="Email is required"
-                {...field} />
-            )}
-          />
+	return (
+		<Container>
+			<Card>
+				<header>
+					<h1>Login</h1>
+				</header>
+				<Form onSubmit={handleSubmit(loginHandler)}>
+					<Controller
+						name="email"
+						control={control}
+						rules={{ required: true }}
+						render={({ field }) => (
+							<Input
+								error={errors.email}
+								errorMessage="Email is required"
+								{...field} />
+						)}
+					/>
 
-          <Controller
-            name="password"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Input
-                error={errors.password}
-                errorMessage="Password is required"
-                type="password"
-                {...field} />
-            )}
-          />
+					<Controller
+						name="password"
+						control={control}
+						rules={{ required: true }}
+						render={({ field }) => (
+							<Input
+								error={errors.password}
+								errorMessage="Password is required"
+								type="password"
+								{...field} />
+						)}
+					/>
 
-          <Button name="Login" type="submit" />
-        </Form>
+					<Button name="Login" type="submit" />
+				</Form>
 
-        <CenteredLinks>
-          {/* <div><Link to="/password">Forgot password?</Link></div> */}
-          <div>New to Kanbanto? <Link to="/register">Register</Link></div>
-        </CenteredLinks>
+				<CenteredLinks>
+					{/* <div><Link to="/password">Forgot password?</Link></div> */}
+					<div>New to Kanbanto? <Link to="/register">Register</Link></div>
+				</CenteredLinks>
 
-      </Card>
-    </Container>
-  );
+			</Card>
+		</Container>
+	);
 }
 
 export default LoginScreen;

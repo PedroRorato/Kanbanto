@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
-	background:tomato;
+	background:green;
   border-radius: .5rem;
   color: #fff;
   font-size: 16px;

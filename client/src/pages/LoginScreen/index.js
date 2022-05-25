@@ -65,7 +65,7 @@ function LoginScreen() {
 						)}
 					/>
 
-					<Button name="Login" type="submit" />
+					<Button name="Sign In" type="submit" />
 				</Form>
 
 				<CenteredLinks>
